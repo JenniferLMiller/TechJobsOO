@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechJobs.Models;
 using TechJobs.Data;
 using TechJobs.ViewModels;
+using System;
 
 namespace TechJobs.Controllers
 {
@@ -9,6 +11,8 @@ namespace TechJobs.Controllers
 
         // Our reference to the data store
         private static JobData jobData;
+        
+
 
         static JobController()
         {
@@ -20,7 +24,12 @@ namespace TechJobs.Controllers
         {
             // TODO #1 - get the Job with the given ID and pass it into the view
 
-            return View();
+            // pass the id to the view model, the view model will have a method to retrieve the data, and return it here,
+            //then pass it to the view - build a new viewmodel?
+
+            Job job = jobData.Find(id);
+
+            return View(job);
         }
 
         public IActionResult New()
@@ -35,6 +44,19 @@ namespace TechJobs.Controllers
             // TODO #6 - Validate the ViewModel and if valid, create a 
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
+
+            int value = newJobViewModel.EmployerID;
+            string employer = Enum.GetName(typeof(Employer), value);
+           
+
+            Job newJob = new Models.Job {
+                Name = newJobViewModel.Name,    
+                //Employer = newJobViewModel.Job.Employer.Id,
+                //Location.ID = newJobViewModel.LocationID;
+                //    CoreCompetency = newJobViewModel.CoreCompetencyID,
+                //    PositionType = newJobViewModel.PositionTypeID;
+            };
+
 
             return View(newJobViewModel);
         }
