@@ -46,19 +46,23 @@ namespace TechJobs.Controllers
             // redirect to the Job detail (Index) action/view for the new Job.
 
             int value = newJobViewModel.EmployerID;
-            string employer = Enum.GetName(typeof(Employer), value);
+            //string employer = Enum.GetName(typeof(Employer), value);
            
 
             Job newJob = new Models.Job {
                 Name = newJobViewModel.Name,    
-                //Employer = newJobViewModel.Job.Employer.Id,
-                //Location.ID = newJobViewModel.LocationID;
-                //    CoreCompetency = newJobViewModel.CoreCompetencyID,
-                //    PositionType = newJobViewModel.PositionTypeID;
+                Employer = jobData.Employers.Find(newJobViewModel.EmployerID),
+                Location = jobData.Locations.Find(newJobViewModel.LocationID),
+                CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetencyID),
+                PositionType = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID)
             };
 
+            jobData.Jobs.Add(newJob);
 
-            return View(newJobViewModel);
+            string url = "/Job?id=" + newJob.ID.ToString();
+
+            //return View("index", newJob);
+            return Redirect(url);
         }
     }
 }

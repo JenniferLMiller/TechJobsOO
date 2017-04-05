@@ -40,6 +40,6 @@ namespace TechJobs.Controllers
             jobsViewModel.Title = "Search";
 
             return View("Index", jobsViewModel);
-        }
+       }
     }
 }
