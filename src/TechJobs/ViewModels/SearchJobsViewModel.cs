@@ -13,13 +13,13 @@ namespace TechJobs.ViewModels
         // The search results
         public List<Job> Jobs { get; set; }
 
-        // The column to search, defaults to all
-        public new JobFieldType Column { get; set; } = JobFieldType.All;
-
         // The search value
         [Display(Name = "Keyword:")]
         public string Value { get; set; } = "";
 
-          public SearchJobsViewModel() : base()  { }
+          public SearchJobsViewModel() : base()
+        {
+            Column = JobFieldType.All;
+        }
     }
 }
