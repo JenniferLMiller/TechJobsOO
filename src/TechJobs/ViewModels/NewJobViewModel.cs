@@ -8,7 +8,7 @@ namespace TechJobs.ViewModels
 {
     public class NewJobViewModel
     {
-        [Required]
+        [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
         [Required]

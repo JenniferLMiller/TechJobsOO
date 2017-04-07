@@ -47,22 +47,31 @@ namespace TechJobs.Controllers
 
             int value = newJobViewModel.EmployerID;
             //string employer = Enum.GetName(typeof(Employer), value);
-           
 
-            Job newJob = new Models.Job {
-                Name = newJobViewModel.Name,    
-                Employer = jobData.Employers.Find(newJobViewModel.EmployerID),
-                Location = jobData.Locations.Find(newJobViewModel.LocationID),
-                CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetencyID),
-                PositionType = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID)
-            };
 
-            jobData.Jobs.Add(newJob);
 
-            string url = "/Job?id=" + newJob.ID.ToString();
+            if (ModelState.IsValid)
+            {
+                Job newJob = new Models.Job
+                {
+                    Name = newJobViewModel.Name,
+                    Employer = jobData.Employers.Find(newJobViewModel.EmployerID),
+                    Location = jobData.Locations.Find(newJobViewModel.LocationID),
+                    CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompetencyID),
+                    PositionType = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID)
+                };
+                jobData.Jobs.Add(newJob);
 
-            //return View("index", newJob);
-            return Redirect(url);
+                string url = "/Job?id=" + newJob.ID.ToString();
+
+                //return View("index", newJob);
+                return Redirect(url);
+            }
+            else
+            {
+                return View(newJobViewModel);
+            }
+ 
         }
     }
 }
